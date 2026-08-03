@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>សាលាបង្រៀនឯកជន ឧត្តមភាព | Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #2563eb;
+            --accent: #f59e0b;
+            --text-dark: #334155;
+            --text-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --transition: 0.4s ease-in-out;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Hanuman', 'Poppins', sans-serif; color: var(--text-dark); background: var(--bg-gray); overflow-x: hidden; }
+
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); transition: var(--transition);
+        }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--secondary); font-size: 2rem; }
+        
+        .nav-menu { display: flex; gap: 25px; list-style: none; }
+        .nav-menu a { text-decoration: none; color: var(--primary); font-weight: 600; font-size: 1.1rem; transition: var(--transition); position: relative; }
+        .nav-menu a::after { content: ''; position: absolute; width: 0; height: 3px; background: var(--secondary); bottom: -5px; left: 0; transition: var(--transition); }
+        .nav-menu a:hover { color: var(--secondary); }
+        .nav-menu a:hover::after { width: 100%; }
+
+        .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: var(--primary); }
+
+        .slider-container {
+            position: relative; width: 100%; height: 100vh; overflow: hidden; background: #000;
+        }
+        
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; transition: opacity 1s ease-in-out; z-index: 1;
+        }
+        .slide.active { opacity: 1; z-index: 2; }
+        
+        .slide::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); z-index: 2;
+        }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        .slide-content {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; color: white; z-index: 3; width: 80%;
+        }
+        .slide-content h1 { font-size: 4rem; margin-bottom: 20px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .slide-content p { font-size: 1.3rem; margin-bottom: 30px; }
+
+        .btn-main {
+            display: inline-block; padding: 15px 40px; background: var(--secondary); color: white;
+            text-decoration: none; font-size: 1.2rem; font-weight: bold; border-radius: 30px;
+            transition: var(--transition); border: 2px solid var(--secondary);
+        }
+        .btn-main:hover { background: transparent; transform: scale(1.05); }
+
+        .prev, .next {
+            cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+            width: auto; padding: 20px; color: white; font-weight: bold; font-size: 24px;
+            transition: 0.3s; z-index: 4; user-select: none; background: rgba(0,0,0,0.3); border: none;
+        }
+        .next { right: 0; border-radius: 30px 0 0 30px; }
+        .prev { left: 0; border-radius: 0 30px 30px 0; }
+        .prev:hover, .next:hover { background: rgba(0,0,0,0.8); }
+
+        .dots-container { position: absolute; bottom: 30px; width: 100%; text-align: center; z-index: 4; }
+        .dot { cursor: pointer; height: 12px; width: 12px; margin: 0 5px; background-color: rgba(255,255,255,0.5); border-radius: 50%; display: inline-block; transition: var(--transition); }
+        .dot.active, .dot:hover { background-color: var(--accent); transform: scale(1.3); }
+
+        .section { padding: 100px 5%; max-width: 1200px; margin: auto; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--primary); }
+        .section-title span { color: var(--secondary); }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .card {
+            background: white; border-radius: 15px; padding: 40px 30px; text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: var(--transition);
+            border-bottom: 5px solid transparent;
+        }
+        .card:hover { transform: translateY(-10px); border-bottom: 5px solid var(--secondary); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .card i { font-size: 3rem; color: var(--secondary); margin-bottom: 20px; }
+        .card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+
+        .about-flex { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .about-img { flex: 1; min-width: 300px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .about-img img { width: 100%; display: block; transition: 0.5s; }
+        .about-img:hover img { transform: scale(1.05); }
+        .about-text { flex: 1; min-width: 300px; font-size: 1.1rem; line-height: 1.8; }
+        .about-text ul { list-style: none; margin-top: 20px; }
+        .about-text ul li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .about-text ul li i { color: #16a34a; font-size: 1.2rem; }
+
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .contact-card {
+            display: flex; align-items: center; gap: 20px; padding: 25px; background: white;
+            border-radius: 12px; text-decoration: none; color: var(--primary); transition: var(--transition);
+        }
+        .contact-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); background: var(--primary); color: white; }
+        .contact-card i { font-size: 2.5rem; }
+        .contact-card:hover i { color: var(--accent); }
+        
+        .c-tele i { color: #0088cc; }
+        .c-fb i { color: #1877F2; }
+        .c-phone i { color: #16a34a; }
+        .c-map i { color: #dc2626; }
+
+        footer { background: var(--primary); color: white; text-align: center; padding: 40px 20px; margin-top: 50px; }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-menu {
+                position: absolute; top: 70px; left: -100%; width: 100%; background: white;
+                flex-direction: column; text-align: center; padding: 30px 0;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1); transition: 0.4s;
+            }
+            .nav-menu.active { left: 0; }
+            .slide-content h1 { font-size: 2.5rem; }
+            .slide-content p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo"><i class="fa-solid fa-school"></i> សាលាអន្តរជាតិ រីជីន<br> Regin International School</a>
+        <ul class="nav-menu">
+            <li><a href="#home">ទំព័រដើម</a></li>
+            <li><a href="#about">អំពីសាលា</a></li>
+            <li><a href="#courses">វគ្គសិក្សា</a></li>
+            <li><a href="#contact">ទំនាក់ទំនង</a></li>
+        </ul>
+        <div class="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+    </header>
+
+    <section id="home" class="slider-container">
+    
+        <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop" alt="សិស្សកំពុងសិក្សា">
+            <div class="slide-content">
+                <h1>គុណភាពអប់រំស្តង់ដារ</h1>
+                <p>ផ្តល់ជូននូវការអប់រំកម្រិតខ្ពស់ ដើម្បីអនាគតដ៏ភ្លឺស្វាងរបស់កូនលោកអ្នក។</p>
+                <a href="#contact" class="btn-main">ចុះឈ្មោះឥឡូវនេះ</a>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop" alt="ការសិក្សាកុំព្យូទ័រ">
+            <div class="slide-content">
+                <h1>បច្ចេកវិទ្យា និងនវានុវត្តន៍</h1>
+                <p>បន្ទប់កុំព្យូទ័រទំនើប និងឧបករណ៍បំពាក់ពេញលេញសម្រាប់ការអនុវត្តជាក់ស្តែង។</p>
+                <a href="#courses" class="btn-main">មើលវគ្គសិក្សា</a>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2000&auto=format&fit=crop" alt="ការសិក្សាជាក្រុម">
+            <div class="slide-content">
+                <h1>បរិយាកាសសិក្សាល្អឥតខ្ចោះ</h1>
+                <p>សិស្សានុសិស្សមានឱកាសបញ្ចេញសមត្ថភាព និងផ្លាស់ប្តូរយោបល់ជាក្រុមយ៉ាងជិតស្និទ្ធ។</p>
+                <a href="#about" class="btn-main">ស្វែងយល់បន្ថែម</a>
+            </div>
+        </div>
+
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
+
+        <div class="dots-container">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title">អំពី <span>សាលាយើងខ្ញុំ</span></h2>
+        <div class="about-flex">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1000&auto=format&fit=crop" alt="អគារសាលា">
+            </div>
+            <div class="about-text">
+                <h3>បណ្តុះបណ្តាលដើម្បីឧត្តមភាព</h3>
+                <p>សាលាបង្រៀនឯកជន ឧត្តមភាព ត្រូវបានបង្កើតឡើងក្នុងគោលបំណងលើកកម្ពស់វិស័យអប់រំ និងផ្តល់នូវចំណេះដឹងពិតប្រាកដដល់សិស្សានុសិស្សគ្រប់កម្រិតថ្នាក់។</p>
+                <ul>
+                    <li><i class="fa-solid fa-circle-check"></i> លោកគ្រូអ្នកគ្រូមានគរុកោសល្យ និងបទពិសោធន៍ខ្ពស់</li>
+                    <li><i class="fa-solid fa-circle-check"></i> បន្ទប់រៀនបំពាក់ម៉ាស៊ីនត្រជាក់ និងមានផាសុកភាព</li>
+                    <li><i class="fa-solid fa-circle-check"></i> ផ្តោតសំខាន់លើ វិន័យ សីលធម៌ និងសមត្ថភាពពិត</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="section" style="background: white; border-radius: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.02);">
+        <h2 class="section-title">កម្មវិធី <span>សិក្សា</span></h2>
+        <div class="grid-3">
+            <div class="card">
+                <i class="fa-solid fa-language"></i>
+                <h3>ភាសាអង់គ្លេសទូទៅ</h3>
+                <p>រៀនពីមូលដ្ឋានគ្រឹះរហូតដល់កម្រិតអាចប្រាស្រ័យទាក់ទងបានយ៉ាងស្ទាត់ជំនាញ សម្រាប់ការសិក្សា និងការងារ។</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-laptop-code"></i>
+                <h3>កុំព្យូទ័ររដ្ឋបាល</h3>
+                <p>ជំនាញកម្មវិធី Word, Excel, PowerPoint និងការគ្រប់គ្រងទិន្នន័យ ដើម្បីងាយស្រួលរកការងារធ្វើ។</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-book-open"></i>
+                <h3>ថ្នាក់បំប៉នចំណេះទូទៅ</h3>
+                <p>បំប៉នមុខវិជ្ជា គណិត រូប គីមី និងជីវៈ សម្រាប់ត្រៀមប្រឡងសញ្ញាបត្រមធ្យមសិក្សាបឋមភូមិ និងទុតិយភូមិ។</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2 class="section-title">ព័ត៌មាន <span>ទំនាក់ទំនង</span></h2>
+        <div class="contact-grid">
+            
+            <a href="https://t.me/yourusername" target="_blank" class="contact-card c-tele">
+                <i class="fa-brands fa-telegram"></i>
+                <div>
+                    <h4>Telegram</h4>
+                    <p>ឆាតសួរផ្ទាល់យ៉ាងរហ័ស</p>
+                </div>
+            </a>
+
+            <a href="https://facebook.com/yourpage" target="_blank" class="contact-card c-fb">
+                <i class="fa-brands fa-facebook"></i>
+                <div>
+                    <h4>Facebook Page</h4>
+                    <p>ឧត្តមភាព សាលាបង្រៀនឯកជន</p>
+                </div>
+            </a>
+
+            <a href="tel:+85512345678" class="contact-card c-phone">
+                <i class="fa-solid fa-phone-volume"></i>
+                <div>
+                    <h4>លេខទូរស័ព្ទ</h4>
+                    <p>012 345 678 / 098 765 432</p>
+                </div>
+            </a>
+
+            <a href="https://goo.gl/maps/yourlink" target="_blank" class="contact-card c-map">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <div>
+                    <h4>ទីតាំងសាលា</h4>
+                    <p>រាជធានីភ្នំពេញ កម្ពុជា</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 សាលាបង្រៀនឯកជន ឧត្តមភាព. រក្សាសិទ្ធិគ្រប់យ៉ាង។</p>
+    </footer>
+
+    <script>
+        const menuBtn = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = menuBtn.querySelector('i');
+            if(navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
+
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
+            
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+        }
+
+        function changeSlide(n) {
+            slideIndex += n;
+            showSlide(slideIndex);
+            resetTimer(); 
+        }
+
+        function currentSlide(n) {
+            slideIndex = n;
+            showSlide(slideIndex);
+            resetTimer();
+        }
+
+        function startTimer() {
+            slideInterval = setInterval(() => { changeSlide(1); }, 5000);
+        }
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            startTimer();
+        }
+
+        showSlide(slideIndex);
+        startTimer();
+    </script>
+
+</body>
+</html>
