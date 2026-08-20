@@ -85,7 +85,9 @@
         .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--primary); }
         .section-title span { color: var(--secondary); }
 
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        /* បានកែប្រែ Grid ឲ្យបង្ហាញបានស្អាតសម្រាប់ Card ច្រើន */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        
         .card {
             background: white; border-radius: 15px; padding: 40px 30px; text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: var(--transition);
@@ -136,7 +138,7 @@
 <body>
 
     <header>
-        <a href="#" class="logo"><img src="logo.png" alt="Logo" style="width: 110px; vertical-align: middle; margin-right: 10px;"> សាលាអន្តរជាតិ រីជីន<br> Regin International School</a>
+        <a href="#" class="logo"><img src="logo.png" alt="Logo" style="width: 80px; vertical-align: middle; margin-right: 10px;"> សាលាអន្តរជាតិ រីជីន<br> Regin International School</a>
         <ul class="nav-menu">
             <li><a href="#home">ទំព័រដើម</a></li>
             <li><a href="#about">អំពីសាលា</a></li>
@@ -149,7 +151,7 @@
     <section id="home" class="slider-container">
     
         <div class="slide active">
-            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop" alt="សិស្សកំពុងសិក្សា">
+            <img src="an.jpg" alt="សិស្សកំពុងសិក្សា">
             <div class="slide-content">
                 <h1>គុណភាពអប់រំស្តង់ដារ</h1>
                 <p>ផ្តល់ជូននូវការអប់រំកម្រិតខ្ពស់ ដើម្បីអនាគតដ៏ភ្លឺស្វាងរបស់កូនលោកអ្នក។</p>
@@ -158,7 +160,7 @@
         </div>
 
         <div class="slide">
-            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop" alt="ការសិក្សាកុំព្យូទ័រ">
+            <img src="reanpc.png" alt="ការសិក្សាកុំព្យូទ័រ">
             <div class="slide-content">
                 <h1>បច្ចេកវិទ្យា និងអនុវត្តន៍ជាក់ស្តែង</h1>
                 <p>បន្ទប់កុំព្យូទ័រទំនើប និងឧបករណ៍បំពាក់ពេញលេញសម្រាប់ការអនុវត្តជាក់ស្តែង។</p>
@@ -167,7 +169,7 @@
         </div>
 
         <div class="slide">
-            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2000&auto=format&fit=crop" alt="ការសិក្សាជាក្រុម">
+            <img src="sala.png" alt="ការសិក្សាជាក្រុម">
             <div class="slide-content">
                 <h1>បរិយាកាសសិក្សាល្អឥតខ្ចោះ</h1>
                 <p>សិស្សានុសិស្សមានឱកាសបញ្ចេញសមត្ថភាព និងផ្លាស់ប្តូរយោបល់ជាក្រុមយ៉ាងជិតស្និទ្ធ។</p>
@@ -189,7 +191,7 @@
         <h2 class="section-title">អំពី <span>សាលាយើងខ្ញុំ</span></h2>
         <div class="about-flex">
             <div class="about-img">
-                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1000&auto=format&fit=crop" alt="អគារសាលា">
+                <img src="student.jpg" alt="អគារសាលា">
             </div>
             <div class="about-text">
                 <h3>បណ្តុះបណ្តាលដើម្បីឧត្តមភាព</h3>
@@ -203,6 +205,7 @@
         </div>
     </section>
 
+    <!-- កម្មវិធីសិក្សាដែលបានបន្ថែមថ្មី -->
     <section id="courses" class="section" style="background: white; border-radius: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.02);">
         <h2 class="section-title">កម្មវិធី <span>សិក្សា</span></h2>
         <div class="grid-3">
@@ -219,7 +222,19 @@
             <div class="card">
                 <i class="fa-solid fa-book-open"></i>
                 <h3>ថ្នាក់ភាសាចិន</h3>
-                <p>រៀនពីមូលដ្ឋានគ្រឹះរហូតដល់កម្រិតអាចប្រាស្រ័យទាក់ទងបានយ៉ាងស្ទាត់ជំនាញ សម្រាប់ការសិក្សា និងការងារ។។</p>
+                <p>រៀនពីមូលដ្ឋានគ្រឹះរហូតដល់កម្រិតអាចប្រាស្រ័យទាក់ទងបានយ៉ាងស្ទាត់ជំនាញ សម្រាប់ការសិក្សា និងការងារ។</p>
+            </div>
+            <!-- បានបន្ថែម ថ្នាក់ភាសាខ្មែរ -->
+            <div class="card">
+                <i class="fa-solid fa-pen-nib"></i>
+                <h3>ថ្នាក់ភាសាខ្មែរ</h3>
+                <p>ពង្រឹងការអាន សរសេរ និងវេយ្យាករណ៍ភាសាជាតិឲ្យបានត្រឹមត្រូវនិងច្បាស់លាស់។</p>
+            </div>
+            <!-- បានបន្ថែម ថ្នាក់គណិតវិទ្យា -->
+            <div class="card">
+                <i class="fa-solid fa-calculator"></i>
+                <h3>ថ្នាក់គណិតវិទ្យា</h3>
+                <p>បណ្តុះការគិតបែបតក្កវិជ្ជា និងដោះស្រាយលំហាត់តាំងពីកម្រិតមូលដ្ឋានដល់កម្រិតខ្ពស់។</p>
             </div>
         </div>
     </section>
